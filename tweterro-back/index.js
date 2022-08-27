@@ -10,14 +10,24 @@ const users =[];
 const tweets=[];
 
 server.post("/sign-up", (req, res)=>{
-    const newUser = req.body;
+    const {username, avatar} = req.body;
 
-    users.push(newUser)
-    res.send("teste1")
+    users.push({username, avatar})
+
+    res.send("OK")
 });
 
+server.post("/tweets", (req,res)=>{
+    const {username, tweet} = req.body;
+    const {avatar} = users.find(user => user.username === username)
+    
+    tweets.push({username, tweet, avatar})
+
+    res.send("OK")
+})
+
 server.get("/tweets", (req, res) =>{
-    res.send("teste3");
+    res.send(tweets);
 });
 
 
